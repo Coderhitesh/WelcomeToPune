@@ -96,30 +96,30 @@ exports.DeleteSingleService = async(req,res) => {
     }
 }
 
-// exports.deleteAllService = async(req,res) => {
-//     try {
-//         const deleteData = Service
-//         if(!deleteData){
-//             return res.status(404).json({
-//                 success: false,
-//                 message : 'No Service Found'
-//             })
-//         }
+exports.deleteAllService = async (req, res) => {
+    try {
+        const deleteData = await Service.deleteMany({});
 
-//         await deleteData.remove()
+        if (deleteData.deletedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No Service Found'
+            });
+        }
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Service has been deleted!",
-//         })
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({
-//             success : false,
-//             message : "Internal server error"
-//         })
-//     }
-// }
+        res.status(200).json({
+            success: true,
+            message: "All services have been deleted!",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
 
 exports.singleService = async (req, res) => {
     try {
